@@ -6,27 +6,44 @@ using System.Threading.Tasks;
 
 namespace Server.Model
 {
-    class ResourceModel
+    class AzureContainerModel
     {
         private int rid;
-        private String container;
+        private String containerName;
+        private String givenName;
+        private int owner;   //new field added
 
         public int getRid()
         {
             return rid;
         }
-        public String getContainer()
+        public String getContainerName()
         {
-            return container;
+            return containerName;
+        }
+        public String getGivenName()
+        {
+            return givenName;
+        }
+        public int getOwner()
+        {
+            return owner;
         }
         public void setRid(int rid)
         {
             this.rid = rid;
         }
-        public void setContainer(String container)
+        public void setContainerName(String containerName)
         {
-            this.container = container;
+            this.containerName = containerName;
         }
-        
+        public void setGivenName(String givenName)
+        {
+            this.givenName = givenName;
+        }
+        public void setOwner(int owner)
+        {
+            this.owner = owner;
+        }
     }
 }

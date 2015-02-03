@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client.csproj", "{28B7DCFE-1038-4850-8B3B-033E3E1E3399}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "..\Server\Server.csproj", "{6910DD85-B8D7-4187-A77C-CBD52F24275B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTests", "..\ServerTests\ServerTests.csproj", "{3A458B95-C358-442B-9A06-48181D5167C5}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://a525group7.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Client.csproj
+		SccLocalPath1 = .
+		SccProjectUniqueName2 = ..\\Server\\Server.csproj
+		SccProjectName2 = ../Server
+		SccLocalPath2 = ..\\Server
+		SccProjectUniqueName3 = ..\\ServerTests\\ServerTests.csproj
+		SccProjectName3 = ../ServerTests
+		SccLocalPath3 = ..\\ServerTests
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28B7DCFE-1038-4850-8B3B-033E3E1E3399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B7DCFE-1038-4850-8B3B-033E3E1E3399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B7DCFE-1038-4850-8B3B-033E3E1E3399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B7DCFE-1038-4850-8B3B-033E3E1E3399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6910DD85-B8D7-4187-A77C-CBD52F24275B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6910DD85-B8D7-4187-A77C-CBD52F24275B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6910DD85-B8D7-4187-A77C-CBD52F24275B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6910DD85-B8D7-4187-A77C-CBD52F24275B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A458B95-C358-442B-9A06-48181D5167C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A458B95-C358-442B-9A06-48181D5167C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A458B95-C358-442B-9A06-48181D5167C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A458B95-C358-442B-9A06-48181D5167C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

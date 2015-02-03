@@ -9,24 +9,23 @@ namespace Server.BlobStorageManager
     class BlobStorage
     {
         private static CloudBlobClient cloudBlobClient;
-        private static object initializeLock = new object();
+        //private static object initializeLock = new object();
 
-        //*****************************************CONFIDENTIAL*****************************************************
-        private static String accountName = "cics525group7";
-        private static String accountKey = "6Z6UixoILvm1DZJKZl+vejNNxVbK0tjmuwRTNlkyQ1wqyUyh+16dxIaYv6C4qivYiu2Ub+gGAYqr1LnKx2fplw==";
-        //**********************************************************************************************************
-        private static Microsoft.WindowsAzure.Storage.Auth.StorageCredentials credentials;
+        private static String accountName = "portalvhdsy2kypk56l5hn7";
+
+        //private static Microsoft.WindowsAzure.Storage.Auth.StorageCredentials credentials;
         private static Microsoft.WindowsAzure.Storage.CloudStorageAccount account;
-
-        //Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient 
-
+        
+        
         /// <summary>
         /// This method do the housekeeping stuffs
         /// </summary>
         private static void initialize() {
+            //Return reference to the storage account
+            account = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
             
-            credentials = new StorageCredentials(accountName, accountKey);
-            account = new CloudStorageAccount(credentials, useHttps: true);
+            //credentials = new StorageCredentials(accountName, accountKey);
+            //account = new CloudStorageAccount(credentials, useHttps: true);
 
             cloudBlobClient = account.CreateCloudBlobClient();
 
@@ -57,9 +56,8 @@ namespace Server.BlobStorageManager
             Uri rootUri = new Uri(uriString);
             Uri pathUri = new Uri(rootUri, blobPath);
             StorageUri uri = new StorageUri(pathUri);
-            //CloudBlobClient blobClient = new CloudBlobClient(uriString, new StorageCredentialsAccountAndKey(accountName, accountKey));
-            CloudBlobClient blobClient = new CloudBlobClient(uri, new StorageCredentials(accountName, accountKey));
-            ICloudBlob result = blobClient.GetBlobReferenceFromServer(uri);
+
+            ICloudBlob result = cloudBlobClient.GetBlobReferenceFromServer(uri);
             if (result is CloudBlockBlob)
             {
                 return (CloudBlockBlob)result;
@@ -68,9 +66,6 @@ namespace Server.BlobStorageManager
             {
                 return null;
             }
-            //CloudBlob blob = blobClient.GetBlobReference(blobPath);
-
-            //return blob;
         }
 
         /// <summary>

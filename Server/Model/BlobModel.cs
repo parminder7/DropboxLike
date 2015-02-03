@@ -1,4 +1,11 @@
-﻿using System;
+﻿
+
+/**
+ * * Will not be using this class.... ALT > BLOB METADATA feature is used
+ */
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

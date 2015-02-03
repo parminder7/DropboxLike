@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.IO;
+using test.Util;
 
 namespace ClientWorker
 {
@@ -20,8 +21,9 @@ namespace ClientWorker
            NetworkStream networkStream = socket.GetStream();
            var streamReader = new System.IO.StreamReader(networkStream);
            var streamWriter = new System.IO.StreamWriter(networkStream);
-
-           string newCredential = "LOGIN" + " " + user + " " + password + "\n";
+           MD5Encryption MD5Encryption = new MD5Encryption();
+           string hashPassword = MD5Encryption.GetHashedPassword(user, password);
+           string newCredential = "LOGIN" + " " + user + " " + hashPassword + "\n";
            try
            {
                streamWriter.WriteLine(newCredential);

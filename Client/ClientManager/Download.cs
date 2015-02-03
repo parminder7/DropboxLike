@@ -19,16 +19,14 @@ namespace ClientWorker
             socket = connection.connect();
 
             NetworkStream networkStream = socket.GetStream();
+
             var streamReader = new System.IO.StreamReader(networkStream);
             var streamWriter = new System.IO.StreamWriter(networkStream);
 
             string newdownload = "DOWNLOAD" + " " + container_id + " " + path + "\n";
             
-                streamWriter.WriteLine(newdownload);
+            streamWriter.WriteLine(newdownload);          
             
-            
-
-
             streamWriter.Flush();
             string uploadResponse = streamReader.ReadLine();
             string[] upSplit = uploadResponse.Split(' ');
@@ -39,12 +37,9 @@ namespace ClientWorker
 
                 int newport = Int32.Parse(upSplit[1]);
                 //connection.connect("localhost", newport);
-
-        
-
-                downloadSocket = new TcpClient("128.189.75.94", newport);
+                
+                downloadSocket = new TcpClient(test.ClientManager.ClientConstants.SERVER_IP_ADDRESS, newport);
               
-
                 NetworkStream downStream = downloadSocket.GetStream();
                 //StreamReader sr = new StreamReader(downStream);
                 

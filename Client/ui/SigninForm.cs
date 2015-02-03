@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Server;
+//using Server;
 using ClientWorker;
+using test.Background;
 
-namespace Client
+namespace test
 {
     public partial class SigninForm : Form
     {
@@ -30,22 +31,31 @@ namespace Client
         {
             string email = textBox1.Text;
             string password = maskedTextBox1.Text;
-            autheticateUser(email, password);           
+            string name = name_textBox.Text;
+            autheticateUser(name, email, password);           
         }
        
-        public void autheticateUser(string email, string password)
+        public void autheticateUser(string name, string email, string password)
         {
+            if (name == "")
+            {
+                MessageBox.Show("Please Enter your name");
+                return;
+            }
             if (!common.isEmailPwdNull(email, password))
             {
                 if (common.validateEmail(email))
                 {
                     NewUser login = new NewUser();
 
-                    if (login.newRegister(email, password))
+                    if (login.newRegister(name, email, password))
                     {
                         this.Hide();
-                        ClientForm clientForm = new ClientForm(email);
+                        WatcherUtil watcherUtil = new WatcherUtil(email);
+                        ClientForm clientForm = new ClientForm(email, watcherUtil);
                         clientForm.Show();
+                        watcherUtil.startServerSync();
+                        watcherUtil.startWatcher();
 
                     }
                     else

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="cloudinfo" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="cloudinfo" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="container">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="file" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" />
+                  <xs:attribute name="size" type="xs:string" />
+                  <xs:attribute name="timestamp" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="user" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="email" type="xs:string" />
+                  <xs:attribute name="name" type="xs:string" />
+                  <xs:attribute name="access" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" />
+            <xs:attribute name="access" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

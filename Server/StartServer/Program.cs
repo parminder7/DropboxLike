@@ -3,49 +3,90 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace Server.StartServer
 {
     class Program
     {
+        public unsafe delegate void MyCallback(void* param);
+        [DllImport("kernel32.DLL")]
+        public static extern unsafe int RegisterApplicationRecoveryCallback(MyCallback callback, void* param, int dwPingInterval, int dwFlags);
+        [DllImport("kernel32.DLL")]
+        public static extern unsafe int RegisterApplicationRestart([MarshalAs(UnmanagedType.LPWStr)]string pwzCommandline, uint dwFlags);
+        public unsafe static void appExit(void* param)
+        {
+            Console.WriteLine("UNSAFE HANDLER RUNNING");
+            Environment.Exit(0);
+        }
         public static void Main(string[] args)
         {
-            //Services.User u = new Services.User();
-
-            MainProgram.newMain(args);
-            /*
-            u.validateUser("parminder_jk@hotmail.com", "abc");
-            Console.WriteLine("Creating blob");
-            u.testUpload(123);
-            */
-            
-            //THIS UPLOADS THE FILE TO CONTAINER
-            //u.testUpload(9005);
-
-            //u.createUser("parmindr@mss.icics.ubc.ca", "xyz");
-            /*
-            Console.WriteLine("TRUE:Exists    "+u.validateUser("Jenny1@ubc.com","qwer123"));
-            Console.WriteLine("FALSE:No record found    " + u.validateUser("Jenny2@ubc.com", "qwer123"));
-            Console.WriteLine("FALSE:Wrong creds    " + u.validateUser("Jenny1@ubc.com", "qwer1"));
-            Console.WriteLine("create"+u.createUser("xz@ms.ca", "paas"));
-            Console.WriteLine("Container name: " );
-            String[] c = u.list("Jenny1@ubc.com", null);
-            Console.WriteLine(c.Length);
-            for (int i = 0; i >= c.Length; i++)
+            const int SECONDS = 1000;
+            const int RESTART_NO_CRASH = 1;
+            const int RESTART_NO_HANG = 2;
+            const int RESTART_NO_PATCH = 4;
+            const int RESTART_NO_REBOOT = 8;
+            unsafe
             {
-                Console.WriteLine(c[i]);
+                int result;
+                result = RegisterApplicationRecoveryCallback(new MyCallback(appExit), null, 60 * SECONDS, 0);
+                if (result != 0)
+                {
+                    Console.WriteLine("SEVERE: could not install fail handler.");
+                }
+                result = RegisterApplicationRestart("--restart", RESTART_NO_REBOOT);
+                if (result != 0)
+                {
+                    Console.WriteLine("WARNING: could not install restart handler");
+                }
             }
 
-            u.upload("Jenny1@ubc.com", "9010:private9009", "E:/test2.txt");
-            String[] cc = u.list("Jenny1@ubc.com", "9010:9010");
-            Console.WriteLine(cc[0]);
-            Console.WriteLine(cc[1]);
-            
-            Console.WriteLine(cc.Length);
-            for (int i = 0; i >= cc.Length; i++)
+            GraceFullCtrlC();
+            MainProgram.newMain(args);
+ 
+        }
+        /* Copied from http://www.codeproject.com/Articles/16164/Managed-Application-Shutdown 
+         * Unfortunately, closing the window doesn't trip this method either... */
+        static void GraceFullCtrlC()
+        {
+            Console.CancelKeyPress += delegate(object sender,
+                                    ConsoleCancelEventArgs e)
             {
-                Console.WriteLine(cc[i]);
-            }*/
+                if (e.SpecialKey == ConsoleSpecialKey.ControlBreak)
+                {
+                    e.Cancel = true;
+                    Console.WriteLine("Ctrl-Break catched and" +
+                      " translated into an cooperative shutdown");
+                    // Environment.Exit(1) would NOT do 
+                    // a cooperative shutdown. No finalizers are called!
+                    var t = new Thread(delegate()
+                    {
+                        Console.WriteLine("Asynchronous shutdown started");
+                        Environment.Exit(1);
+                    });
+
+                    t.Start();
+                    t.Join();
+                }
+                if (e.SpecialKey == ConsoleSpecialKey.ControlC)
+                {
+                    e.Cancel = true; // tell the CLR to keep running
+                    Console.WriteLine("Ctrl-C catched and " +
+                      "translated into cooperative shutdown");
+                    // If we want to call exit triggered from
+                    // out event handler we have to spin
+                    // up another thread. If somebody of the
+                    // CLR team reads this. Please fix!
+                    new Thread(delegate()
+                    {
+                        Console.WriteLine("Asynchronous shutdown started");
+                        Environment.Exit(2);
+                    }).Start();
+                }
+            };
+
+            Console.WriteLine("Ctrl-C / Ctrl-Break handler installed.");
         }
     }
 }

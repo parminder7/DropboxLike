@@ -10,7 +10,7 @@ namespace Server.Model
     {
         private int rid;
         private int uid;
-        private int rreadonly;
+        private int owner;   //new field added
         private int readwrite;
 
         public int getRid()
@@ -21,9 +21,9 @@ namespace Server.Model
         {
             return uid;
         }
-        public int getReadonly()
+        public int getOwner()
         {
-            return rreadonly;
+            return owner;
         }
         public int getReadwrite()
         {
@@ -37,9 +37,9 @@ namespace Server.Model
         {
             this.uid = uid;
         }
-        public void setReadonly(int rreadonly)
+        public void setOwner(int owner)
         {
-            this.rreadonly = rreadonly;
+            this.owner = owner;
         }
         public void setReadwrite(int readwrite)
         {

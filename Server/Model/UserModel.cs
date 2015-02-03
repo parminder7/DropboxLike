@@ -11,6 +11,7 @@ namespace Server.Model
         private int uid;
         private String emailid;
         private String password;
+        private String fullname;    //new field added
         
         public int getUid()
         {
@@ -24,6 +25,10 @@ namespace Server.Model
         {
             return password;
         }
+        public String getFullName()
+        {
+            return fullname;
+        }
         public void setUid(int uid)
         {
             this.uid = uid;
@@ -35,6 +40,10 @@ namespace Server.Model
         public void setPassword(String password)
         {
             this.password = password;
+        }
+        public void setFullName(String fullname)
+        {
+            this.fullname = fullname;
         }
     }
 }

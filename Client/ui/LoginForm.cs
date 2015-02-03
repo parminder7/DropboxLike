@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Server;
 using ClientWorker;
+using System.Threading;
+using test.Background;
 
-namespace Client
+namespace test
 {
     public partial class LoginForm : Form
     {
@@ -49,13 +50,15 @@ namespace Client
                 if (common.validateEmail(email))
                 {
                     Login login = new Login();
-                  
-                    if (login.userLogin(email,password)) 
-                    {
-                        this.Hide(); 
-                        ClientForm clientForm = new ClientForm(email);
+
+                    if (login.userLogin(email, password))
+                    {                        
+                        this.Hide();
+                        WatcherUtil watcherUtil = new WatcherUtil(email);
+                        ClientForm clientForm = new ClientForm(email, watcherUtil);
                         clientForm.Show();
-                        
+                        watcherUtil.startServerSync();
+                        watcherUtil.startWatcher();
                     }
                     else
                     {
@@ -73,14 +76,14 @@ namespace Client
                 }
 
             }
-            else 
+            else
             {
                 MessageBox.Show("Please Enter Login Id and Password");
             }
-           
+
         }
 
-      
+
 
         private void button2_Click_1(object sender, EventArgs e)
         {
@@ -89,6 +92,6 @@ namespace Client
             sf.Show();
         }
 
-       
+
     }
 }

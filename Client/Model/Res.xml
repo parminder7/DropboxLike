@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<cloudinfo>
+  <container name="sh1" access="owner">
+    <file name="folder2+test2.txt"  size="505038"  timestamp="7/31/2014 5:46:41 PM +00:00" >
+    </file>
+    <user email="tc@mss.com" name="tudr cost" access="readonly" />
+  </container>
+  <container name="HappyFolder1" access="owner">
+    <file name="hw1.pdf"  size="505038"  timestamp="7/31/2014 5:46:41 PM +00:00" >
+    </file>
+    <user email="parmindr@mss.ca" name="parmindr@mss.ca" access="readonly" />
+  </container>
+  <container name="FirstShare_me" access="owner">
+    <user email="test1@mss.com" name="test1" access="readwrite" />
+  </container>
+  <container name="Sharestest1" access="owner">
+    <user email="test1@mss.com" name="test1" access="readwrite" />
+  </container>
+  <container name="FirstShare" access="readonly">
+  </container>
+  <container name="FirstShare2" access="readwrite">
+  </container>
+</cloudinfo>
